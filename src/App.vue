@@ -19,7 +19,13 @@ import AddCause from './components/AddCause.vue'
 import ViewCause from './components/ViewCause.vue'
 import Preferences from './components/Preferences.vue'
 import EditCause from './components/EditCause.vue'
-import { defineComponent } from 'vue'
+import { h, defineComponent, markRaw } from 'vue'
+import routes from './routes';
+import page from 'page';
+
+const DefaultComponent = markRaw({
+  render: () => h('div', 'Loading…')
+})
 
 type PageState = "Add"|"List"|"View"|"Edit"|"Preferences"
 
@@ -41,6 +47,18 @@ export default defineComponent({
     return {
       currentRoute: window.location.pathname,
     } as AppState
+  },
+  created() {
+    for (let route in routes) {
+      page(route, () => {
+        this.ViewComponent = markRaw(import('./pages/' + routes[route] + '.vue'))
+      })
+    }
+
+    page()
+  },
+  render () {
+    return h(this.ViewComponent || DefaultComponent)
   },
   computed: {
     theme(): string {
