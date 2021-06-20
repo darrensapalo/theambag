@@ -28,6 +28,7 @@
         {{ contributor.name }}
       </span>
     </div>
+    
     <!-- <div id="actions">
       <div id="button-container" @click="joinContributors()">
       +
@@ -35,6 +36,9 @@
     </div> -->
   </div>
   </template>
+  <div style="margin-top: 20px;" @click="state = (state === 'front') ? 'back' : 'front'">
+    <em>Tap</em>
+  </div>
 </template>
 
 <script lang="ts">

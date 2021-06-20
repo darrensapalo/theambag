@@ -89,11 +89,16 @@ strong {
   margin: 20px;
 }
 
+#theme-selector {
+  margin: 2rem 0;
+}
+
 ul {
   list-style-type: none;
   display: flex;
   flex-direction: row;
-  margin: 0 40%;
+  margin: 0 20px;
+  padding: 0;
   justify-content: space-evenly;
 }
 li {

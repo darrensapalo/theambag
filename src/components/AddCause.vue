@@ -57,7 +57,7 @@
         </div>
       </template>
       <template v-else>
-        <p class="text-tertiary"><em>No contributors yet. Enter some friendly dudes and dudettes below.</em></p>
+        <p class="text-tertiary" style="color: var(--color-light); margin: 20px;"><em>No contributors yet. Enter some friendly dudes and dudettes below.</em></p>
       </template>
       
       
