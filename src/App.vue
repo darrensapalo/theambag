@@ -2,17 +2,19 @@
   <div :class="theme">
   <router-view >
   </router-view>
+  <div id="theme-selector">
+    <div id="title"><strong>Themes</strong></div>
+    <ul>
+      <li @click="setTheme('dlsu')">Green</li>
+      <li @click="setTheme('ateneo')">Blue</li>
+      <li @click="setTheme('ust')">Yellow</li>
+      <li @click="setTheme('up')">Maroon</li>
+    </ul>
+  </div>
   </div>
 </template>
 <script lang="ts">
-import ListCauses from './components/ListCauses.vue'
-import AddCause from './components/AddCause.vue'
-import ViewCause from './components/ViewCause.vue'
-import Preferences from './components/Preferences.vue'
-import EditCause from './components/EditCause.vue'
-import { h, defineComponent, markRaw } from 'vue'
-import routes from './routes';
-import page from 'page';
+import { defineComponent, h, markRaw } from 'vue'
 
 const DefaultComponent = markRaw({
   render: () => h('div', 'Loading…')
@@ -21,7 +23,7 @@ const DefaultComponent = markRaw({
 type PageState = "Add"|"List"|"View"|"Edit"|"Preferences"
 
 type AppState = {
-  ViewComponent: any;
+  theme: string;
   state: PageState;
 }
 
@@ -31,19 +33,34 @@ export default defineComponent({
   el: "#app",
   data() {
     return {
+      theme: 'dlsu',
     } as AppState
   },
-  created() {
-    
+  methods: {
+    setTheme(theme: string) {
+      var wholeURL = new URL(window.location.toString());
+      console.log(wholeURL);
+      var searchParams = new URLSearchParams(wholeURL.search);
+      searchParams.set('theme', theme);
+
+      let newUrl = new URL(window.location.href);
+      newUrl.search = searchParams as any;
+      history.pushState({}, null, newUrl.toString());
+      this.theme = `theme-${theme}`
+      localStorage.setItem('theme', this.theme);
+    }
   },
-  computed: {
-    theme(): string {
+  created() {
       var wholeURL = new URL(window.location.toString());
       console.log(wholeURL);
       var searchParams = new URLSearchParams(wholeURL.search);
 
       console.log(searchParams);
-      if (searchParams.has("theme") === false) return "theme-dlsu";
+      if (searchParams.has("theme") === false) {
+        const theme = localStorage.getItem('theme');
+        this.theme = theme || `theme-dlsu`
+        return;
+      };
 
       const theme = searchParams.get("theme");
       console.log(theme);
@@ -54,16 +71,32 @@ export default defineComponent({
         "up",
       ]
 
-      if (supportedThemes.includes(theme)) return `theme-${theme}`;
+      if (supportedThemes.includes(theme)) {
+        this.theme = `theme-${theme}`
+        return;
+      }
 
-      return "theme-dlsu"
-    },
-  
-  }
+      this.theme = `theme-dlsu`
+  },
 })
 
 </script>
 
 <style>
 @import url('./assets/styles.scss');
+
+strong {
+  margin: 20px;
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  margin: 0 40%;
+  justify-content: space-evenly;
+}
+li {
+  cursor: pointer;
+}
 </style>
