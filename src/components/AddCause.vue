@@ -96,7 +96,7 @@ export default defineComponent({
   },
   data() {
     return {
-      isEditing: false,
+      isEditing: true,
       cause: {
         date: new Date(),
         recipientName: "",
