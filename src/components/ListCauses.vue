@@ -37,7 +37,7 @@ export default defineComponent({
   },
   methods: {
     viewCause(id: string) {
-      window.location.pathname = `/causes/${id}`
+      this.$router.push(`/causes/${id}`);
     },
     dateOfCause(cause: Cause) {
       if (isNullOrUndefined(cause)) return "";
@@ -57,7 +57,7 @@ export default defineComponent({
       return join(new Date, a, ' ');
     },
     makeNewCause() {
-      window.location.pathname = `/`
+      this.$router.push('/add');
     }
   },
   computed: {

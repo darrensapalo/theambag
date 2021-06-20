@@ -66,7 +66,7 @@ export default defineComponent({
       console.log("Join contributors");
     },
     viewList() {
-      window.location.pathname = `/causes`;
+      this.$router.push(`/`);
     },
     async fetchCause(causeID: string): Promise<DBCause> {  
       const headers = new Headers();
@@ -110,8 +110,8 @@ export default defineComponent({
     }
   },
   async created() {
-    if (!isNullOrUndefined(this.causeID)) {
-      const causeResponse : DBCause = await this.fetchCause(this.causeID);
+    if (!isNullOrUndefined(this.$route.params.id)) {
+      const causeResponse : DBCause = await this.fetchCause(this.$route.params.id);
       console.log("cause data")
       console.log(causeResponse);
       this.cause = MapDatabaseCause(causeResponse);

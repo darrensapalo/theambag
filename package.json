@@ -10,7 +10,8 @@
     "alias-hq": "^5.1.6",
     "page": "^1.11.6",
     "typescript": "^4.3.4",
-    "vue": "^3.0.5"
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.3",

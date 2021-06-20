@@ -128,7 +128,7 @@ export default defineComponent({
       
     },
     viewList() {
-      window.location.pathname = `/causes`;
+      this.$router.push('/');
     },
 
     async postCause(): Promise<string> {
@@ -200,7 +200,7 @@ export default defineComponent({
 
     },
     finish(causeID: string) {
-      window.location.pathname = `/causes/${causeID}`
+      this.$router.push(`/causes/${causeID}`);
     }
   },
   computed: {
