@@ -4,8 +4,9 @@
   </div>
     <div id="contributions" class="section">
       <div @click="viewCause(cause.id)" class="contribution" v-for="cause of causes" v-bind:key="cause.id">
-        <h3 class="date text-primary">{{ dateOfCause(cause) }}</h3>
-        <h1 class="greeting text-tertiary">Hey, {{ cause.recipientName }}!</h1>
+        <h1 class="primary-header text-primary">{{ cause.recipientName }}</h1>
+        <div class="divider"></div>
+        <h3 class="secondary-header">{{ dateOfCause(cause) }}</h3>
       </div>
     </div>
      <div id="actions">
@@ -94,29 +95,51 @@ export default defineComponent({
 #contributions {
   margin: 1rem;
   text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+}
+
+@media screen and (max-width: 1080px) {
+  #contributions {
+    grid-template-columns: 1fr 1fr;
+  }
+} 
+
+@media screen and (max-width: 480px) {
+  #contributions {
+    grid-template-columns: 1fr;
+  }
+} 
+
+
+.divider {
+
 }
 
 #title {
-  color: var(--color-primary);
-}
-
-.contribution:not(:last-child) {
-  margin-bottom: 1rem;
+  color: black; /* var(--color-primary) */
 }
 
 .contribution {
   background-color: var(--color-accent);
-  padding: 16px;
+  padding: 30px;
   border-radius: 5px;
   cursor: pointer;
+  min-height: 120px;
 }
-.date {
-  color: var(--color-secondary);
-  margin: 0rem;
-}
-.greeting {
+
+.primary-header {
+  color: #333;
   margin: 0;
-  color: var(--color-primary);
+  border-bottom: 3px solid var(--color-secondary);
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+.secondary-header {
+  font-size: 1rem;
+  margin: 0;
+  color: #333; /** var(--color-primary) */;
 }
 
 #actions {
