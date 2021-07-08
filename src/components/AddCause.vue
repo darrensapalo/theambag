@@ -178,7 +178,11 @@ export default defineComponent({
       }
 
       const response : AddContributorResponse = await postData(postURL, {
-        contributor
+        contributor: {
+          amount: 0,
+          cause_id: contributor.cause_id,
+          name: contributor.name,
+        },
       })
       return response.insert_contributors_one.id;
     },
